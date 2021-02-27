@@ -5,8 +5,8 @@ in_a_row = 4
 game = [[0 for i in range(board_size_x)] for i in range(board_size_y)]
 
 
-column_choice = input("Pick a column: ")
-row_choice = input("Pick a row: ")
+#column_choice = input("Pick a column: ")
+#row_choice = input("Pick a row: ")
 
 #showing game board
 
