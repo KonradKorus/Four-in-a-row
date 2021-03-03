@@ -21,12 +21,12 @@ def check_win(game_board, player,player_row, player_column, in_a_row):
     for row in game_board:
         vertical.append(row[player_column])
     
-    check_line(vertical, "vertically")
+    return check_line(vertical, "vertically")
 
 
     #=====horizontal======
     horizontal = game_board[player_row]
-    check_line(horizontal, "horizontally")
+    return check_line(horizontal, "horizontally")
 
 
     #======diagonal====== (from left to right  \)
@@ -50,7 +50,7 @@ def check_win(game_board, player,player_row, player_column, in_a_row):
         start_row+=1
         start_column+=1
     
-    check_line(diagonal, "diagonally (left to right)")
+    return check_line(diagonal, "diagonally (left to right)")
 
 
     #=====diagonal_2===== (from right to left /)
@@ -74,5 +74,8 @@ def check_win(game_board, player,player_row, player_column, in_a_row):
         start_row+=1
         start_column-=1
     
-    check_line(diagonal, "diagonally (right to left)")
+    return check_line(diagonal, "diagonally (right to left)")
 
+
+
+    
