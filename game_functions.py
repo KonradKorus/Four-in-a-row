@@ -76,6 +76,20 @@ def check_win(game_board, player,player_row, player_column, in_a_row):
     
     return check_line(diagonal, "diagonally (right to left)")
 
+def make_move(game_board, player, in_a_row):
+    space_in_row=False
+    player_column=int(input("Choose your column: "))
+    while not space_in_row:
+        free_row=len(game_board)-1
+        while game_board[free_row][player_column] != 0 and free_row >= 0:
+            free_row-=1
+        if free_row >= 0:
+           space_in_row=True
+           game_board[free_row][player_column]=player
+        else: 
+            player_column=int(input("Choose another column: "))
+    check_win(game_board,player,free_row,player_column,in_a_row)
+    return  game_board
 
 
     
