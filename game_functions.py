@@ -91,5 +91,9 @@ def make_move(game_board, player, in_a_row):
     check_win(game_board,player,free_row,player_column,in_a_row)
     return  game_board
 
+def show_board(game_board):
+    print("   "+"  ".join([str(i) for i in range(len(game_board[0]))]))
 
+    for i, row in zip(range(len(game_board[0])), game_board):
+        print(i, row)
     
