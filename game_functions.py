@@ -11,7 +11,7 @@ def check_win(game_board, player,player_row, player_column, in_a_row):
         for field in range(len(line[0:len(game_board)-in_a_row + 1])):  
             temp = line[field: field+in_a_row] 
             if temp.count(player) >= in_a_row:
-                print(f"Player {player} won {win_type}. Congratulations !!!")    
+                print(f"Player {player} won {win_type}. Congratulations !!!\n")    
                 return True
         return False
     
@@ -20,13 +20,15 @@ def check_win(game_board, player,player_row, player_column, in_a_row):
     vertical = []
     for row in game_board:
         vertical.append(row[player_column])
-    
-    return check_line(vertical, "vertically")
+
+    if check_line(vertical, "vertically"):
+        return True
 
 
     #=====horizontal======
     horizontal = game_board[player_row]
-    return check_line(horizontal, "horizontally")
+    if check_line(horizontal, "horizontally"):
+        return True
 
 
     #======diagonal====== (from left to right  \)
@@ -50,7 +52,8 @@ def check_win(game_board, player,player_row, player_column, in_a_row):
         start_row+=1
         start_column+=1
     
-    return check_line(diagonal, "diagonally (left to right)")
+    if check_line(diagonal, "diagonally (/)"):
+        return True
 
 
     #=====diagonal_2===== (from right to left /)
@@ -74,11 +77,19 @@ def check_win(game_board, player,player_row, player_column, in_a_row):
         start_row+=1
         start_column-=1
     
-    return check_line(diagonal, "diagonally (right to left)")
+    if check_line(diagonal, "diagonally (\)"):
+        return True
 
+#function put token in right column and check for win in this place
 def make_move(game_board, player, in_a_row):
-    space_in_row=False
-    player_column=int(input("Choose your column: "))
+    space_in_row=False    
+    player_column=int(input("\n(Player "+str(player)+") Choose your column: "))
+
+    #wrong number handler
+    while player_column>len(game_board[0]) or player_column < 0:
+        player_column=int(input("\n(Player "+str(player)+") Wrong inpuit choose another column: "))
+
+    #chceking if there is space in column and making move 
     while not space_in_row:
         free_row=len(game_board)-1
         while game_board[free_row][player_column] != 0 and free_row >= 0:
@@ -87,13 +98,18 @@ def make_move(game_board, player, in_a_row):
            space_in_row=True
            game_board[free_row][player_column]=player
         else: 
-            player_column=int(input("Choose another column: "))
-    check_win(game_board,player,free_row,player_column,in_a_row)
-    return  game_board
+            player_column=int(input("(Player "+str(player)+") This one is full - pick another one: "))
+            #wrong number handler
+            while player_column>len(game_board[0]) or player_column < 0:
+                player_column=int(input("\n(Player "+str(player)+") Wrong input choose another column: "))
+    #checking for win in current move
+    is_game_won=check_win(game_board,player,free_row,player_column,in_a_row)
+    return  game_board, is_game_won
 
+#function for showing game_board
 def show_board(game_board):
-    print("   "+"  ".join([str(i) for i in range(len(game_board[0]))]))
-
-    for i, row in zip(range(len(game_board[0])), game_board):
-        print(i, row)
+    print(" "+"  ".join([str(i) for i in range(len(game_board[0]))]))
+    for row in  game_board:
+        print(row)
+    
     
